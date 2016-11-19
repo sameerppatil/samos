@@ -26,6 +26,9 @@ stack_top:
 _start:
 	movl $stack_top, %esp
 
+	# Initialize the core kernel before running the global constructors.
+	call kernel_early
+
 	# Call the global constructors.
 	call _init
 
