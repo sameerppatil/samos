@@ -29,7 +29,8 @@ struct idt_ptr idtp;
 // Function arch/i386/idt.S, loads IDT from a pointer to an idt_ptr
 extern void idt_load(struct idt_ptr* idt_ptr_addr);
 
-void idt_set_gate(uint8_t num, uint64_t base, uint16_t sel, uint8_t flags) {
+void idt_set_gate(uint8_t num, uint64_t base, uint16_t sel, uint8_t flags)
+{
     idt[num].base_lo = base & 0xFFFF;
     idt[num].base_hi = (base >> 16) & 0xFFFF;
     idt[num].always0 = 0;
@@ -38,7 +39,8 @@ void idt_set_gate(uint8_t num, uint64_t base, uint16_t sel, uint8_t flags) {
 }
 
 /* Installs the IDT */
-void idt_install() {
+void idt_install()
+{
     // Sets the special IDT pointer up
     idtp.limit = (sizeof (struct idt_entry) * 256) - 1;
     idtp.base = (uint32_t) &idt;
