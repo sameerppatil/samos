@@ -60,6 +60,7 @@ libc.a: $(OBJS)
 	$(AR) rcs $@ $(OBJS)
 
 libg.a:
+	@echo $(AR) rcs $@
 	$(AR) rcs $@
 
 libk.a: $(LIBK_OBJS)

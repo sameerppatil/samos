@@ -5,7 +5,7 @@ HOST ?= i686-elf
 # Please ensure changes here are reflected inside project directories
 OS_NAME ?= samos
 
-CC_HOME = $(HOME)/i686-cc
+CC_HOME = /home/sameerp/garage/samos_cc
 PATH := $(PATH):$(CC_HOME)/opt/cross/bin
 
 AR = $(HOST)-ar
@@ -50,3 +50,6 @@ iso: build
 
 qemu: iso
 	qemu-system-i386 -cdrom $(OS_NAME).iso
+
+qemucmd: iso
+	qemu-system-i386 -nographic -serial mon:stdio -append 'console=ttyS0' -cdrom $(OS_NAME).iso
