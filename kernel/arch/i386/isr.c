@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <kernel/idt.h>
+#include <kernel/isr.h>
 
 // Function prototypes for exception handlers.
 // The first 32 entries in the IDT are reserved by Intel to service exceptions
@@ -130,7 +131,8 @@ void isr_install()
 void fault_handler(struct regs *r)
 {
     // Is this a service exception or one of our defined exceptions?
-    if (r->int_no < 32) {
+    if (r->int_no < 32)
+    {
         // Displays exception message then puts the systems in a loop
         printf("\n%s Exception. System Halted!\n",
             exception_messages[r->int_no]);
