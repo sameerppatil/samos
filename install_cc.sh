@@ -127,6 +127,7 @@ echo $PATH
 echo $PREFIX
 
 mkdir -p "${LOCAL_TOOLS_DIR}"
+mkdir -p "${EXTERNAL_TOOLS_DIR}"
 
 download_tar_files
 ret=$?
