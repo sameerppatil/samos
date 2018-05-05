@@ -49,4 +49,6 @@ iso: build
 	grub-mkrescue -o $(OS_NAME).iso isodir
 
 qemu: iso
-	qemu-system-i386 -cdrom $(OS_NAME).iso
+	#qemu-system-i386 -cdrom $(OS_NAME).iso
+	qemu-system-i386 -cdrom $(OS_NAME).iso -curses
+
