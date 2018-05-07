@@ -4,6 +4,29 @@
 #include <stdio.h>
 #include <string.h>
 
+#define MY_INT_MAX 24
+
+static char *convert_num(int num, int base)
+{
+    static char digits[] = "0123456789ABCDEF";
+    static char output[MY_INT_MAX];
+    size_t i, length = 1;
+
+    int num_copy = num;
+    while ( num_copy >= base )
+    {
+        num_copy /= base;
+        length++;
+    }
+    output[length] = '\0';
+    for (i = length; i != 0; i--)
+    {
+        output[i - 1] = digits[ num % base ];
+        num /= base;
+    }
+    return &output[0];
+}
+
 static bool print(const char* data, size_t length) {
 	const unsigned char* bytes = (const unsigned char*) data;
 	for (size_t i = 0; i < length; i++)
@@ -50,7 +73,23 @@ int printf(const char* restrict format, ...) {
 			if (!print(&c, sizeof(c)))
 				return -1;
 			written++;
-		} else if (*format == 's') {
+        }
+        else if (*format == 'd')
+        {
+            format++;
+            int number = (int) va_arg(parameters, int /* char promotes to int */);
+            char *str = convert_num(number, 10);
+            size_t len = strlen(str);
+			if (maxrem < len) {
+				// TODO: Set errno to EOVERFLOW.
+				return -1;
+			}
+			if (!print(str, len))
+				return -1;
+			written += len;
+        }
+		else if (*format == 's')
+        {
 			format++;
 			const char* str = va_arg(parameters, const char*);
 			size_t len = strlen(str);
@@ -78,3 +117,4 @@ int printf(const char* restrict format, ...) {
 	va_end(parameters);
 	return written;
 }
+
