@@ -3,6 +3,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
+#include <serial.h>
 
 #define MY_INT_MAX 24
 
@@ -30,8 +31,12 @@ static char *convert_num(int num, int base)
 static bool print(const char* data, size_t length) {
     const unsigned char* bytes = (const unsigned char*) data;
     for (size_t i = 0; i < length; i++)
+    {
         if (putchar(bytes[i]) == EOF)
+        {
             return false;
+        }
+    }
     return true;
 }
 
@@ -115,7 +120,6 @@ int printf(const char* restrict format, ...) {
     }
 
     va_end(parameters);
-    terminal_putline();
     return written;
 }
 
