@@ -18,8 +18,10 @@ LDFLAGS:=$(LDFLAGS)
 LIBS:=$(LIBS) -nostdlib -lk -lgcc
 
 ARCHDIR:=kernel/arch/$(HOSTARCH)
+KERN_CORE_DIR:=kernel
 
 include $(ARCHDIR)/make.config
+include $(KERN_CORE_DIR)/make.config
 
 CFLAGS:=$(CFLAGS) $(KERNEL_ARCH_CFLAGS)
 CPPFLAGS:=$(CPPFLAGS) $(KERNEL_ARCH_CPPFLAGS)
@@ -28,7 +30,7 @@ LIBS:=$(LIBS) $(KERNEL_ARCH_LIBS)
 
 OBJS:=\
 $(KERNEL_ARCH_OBJS) \
-kernel/main.o \
+$(KERNEL_CORE_OBJS) \
 drivers/serial.o
 
 CRTI_OBJ:=$(ARCHDIR)/crti.o

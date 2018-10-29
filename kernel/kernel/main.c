@@ -1,14 +1,15 @@
 #include <stdio.h>
 
 #include <kernel/tty.h>
+#include <kernel/gdt.h>
 #include <serial.h>
 
 void kernel_early(void)
 {
     terminal_init();
     serial_init();
+    initGdt();
 }
-
 
 void kernel_main(void)
 {
