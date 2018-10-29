@@ -5,7 +5,7 @@ HOST ?= i686-elf
 # Please ensure changes here are reflected inside project directories
 OS_NAME ?= samos
 
-CC_HOME = $(HOME)/i686-cc
+CC_HOME = $(PWD)/tools/local
 PATH := $(PATH):$(CC_HOME)/opt/cross/bin
 
 AR = $(HOST)-ar
